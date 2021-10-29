@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  # Database service
+  db:
+    image: db-image-name:latest
+  # Database schema update service
+  flyway:
+    image: flyway/flyway
+    command: -url="jdbc:sqlserver://db;databaseName=database-name" -user=sa -password=Passw0rd migrate
+    volumes:
+      - ./db:/flyway/sql
+    depends_on:
+      - db
